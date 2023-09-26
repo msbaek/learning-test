@@ -43,4 +43,12 @@ public class VirtualThreadTest {
         assertThat(isEmoji(cp)).isTrue();
         System.out.println(shockedFaceEmoji);
     }
+
+    @Test
+    void repeatString() {
+        var line = new StringBuilder()
+                .repeat("-", 10)
+                .toString();
+        assertThat(line).isEqualTo("----------");
+    }
 }
