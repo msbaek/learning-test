@@ -2,7 +2,10 @@ package pe.msbaek.studyingtest.java21;
 
 import org.junit.jupiter.api.Test;
 
+import java.net.http.HttpClient;
 import java.util.concurrent.Executors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class VirtualThreadTest {
     @Test
@@ -17,6 +20,18 @@ public class VirtualThreadTest {
             };
 
             System.out.println(result);
+        }
+    }
+
+    @Test
+    void http() throws Exception {
+        try(var http = HttpClient.newHttpClient()) {
+            var request = java.net.http.HttpRequest.newBuilder()
+                    .uri(java.net.URI.create("https://www.google.com"))
+                    .build();
+            var response = http.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
+            assertThat(response.statusCode()).isEqualTo(200);
+            System.out.println(response.body());
         }
     }
 }
