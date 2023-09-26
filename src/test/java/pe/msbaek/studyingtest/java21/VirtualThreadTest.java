@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.net.http.HttpClient;
 import java.util.concurrent.Executors;
 
+import static java.lang.Character.isEmoji;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VirtualThreadTest {
@@ -33,5 +34,13 @@ public class VirtualThreadTest {
             assertThat(response.statusCode()).isEqualTo(200);
             System.out.println(response.body());
         }
+    }
+
+    @Test
+    void emoji() {
+        var shockedFaceEmoji = "\uD83D\uDE31";
+        var cp = Character.codePointAt(shockedFaceEmoji.toCharArray(), 0);
+        assertThat(isEmoji(cp)).isTrue();
+        System.out.println(shockedFaceEmoji);
     }
 }
