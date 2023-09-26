@@ -13,7 +13,7 @@ public class TraditionalSocketServer {
     public static void main(String[] args) throws IOException {
         var executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         try(var serverSocket = new ServerSocket(9090)) {
-            var clientSocket = serverSocket.accept();
+            Socket clientSocket = serverSocket.accept();
             executor.submit(() -> {
                 try {
                     handleRequest(clientSocket);
@@ -25,7 +25,7 @@ public class TraditionalSocketServer {
         }
     }
 
-    private static void handleRequest(Socket clientSocket) throws IOException {
+    private static void handleRequest(Socket clientSocket) throws IOException, InterruptedException {
         var next = -1;
         try(var baos = new ByteArrayOutputStream()) {
             try (var in = clientSocket.getInputStream()) {

@@ -76,8 +76,8 @@ class RecordTest {
     }
     String enhancedRespond(Object o) {
         return switch (o) {
-            case UserCreatedEvent(var name) -> "User created: " + name;
-            case UserDeletedEvent(var user) -> "User deleted: " + user.name();
+            case UserCreatedEvent(String name) -> "User created: " + name;
+            case UserDeletedEvent(User user) -> "User deleted: " + user.name();
             default -> throw new IllegalArgumentException("Unexpected value: " + o);
         };
     }

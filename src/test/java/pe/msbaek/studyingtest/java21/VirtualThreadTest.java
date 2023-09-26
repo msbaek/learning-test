@@ -2,7 +2,9 @@ package pe.msbaek.studyingtest.java21;
 
 import org.junit.jupiter.api.Test;
 
+import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.Executors;
@@ -29,9 +31,9 @@ public class VirtualThreadTest {
 
     @Test
     void http() throws Exception {
-        try(var http = HttpClient.newHttpClient()) {
-            var request = java.net.http.HttpRequest.newBuilder()
-                    .uri(java.net.URI.create("https://www.google.com"))
+        try(HttpClient http = HttpClient.newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://www.google.com"))
                     .build();
             var response = http.send(request, java.net.http.HttpResponse.BodyHandlers.ofString());
             assertThat(response.statusCode()).isEqualTo(200);
