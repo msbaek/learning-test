@@ -2,6 +2,8 @@ package pe.msbaek.studyingtest.java21;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class SealedTest {
     sealed class Animal { // permits Cat, Bird, Dog {
     }
@@ -46,5 +48,43 @@ class SealedTest {
         System.out.println(communicate(new Bird()));
         System.out.println(communicate(new Chihuahua()));
         System.out.println(communicate(new Dog()));
+    }
+}
+
+class RecordTest {
+    record User(String name, long accountNumber) {
+    }
+
+    record UserDeletedEvent(User user) {
+    }
+
+    record UserCreatedEvent(String name) {
+    }
+
+    String respond(Object o) {
+        return switch (o) {
+            case UserCreatedEvent e -> "User created: " + e.name();
+            case UserDeletedEvent e -> "User deleted: " + e.user().name();
+            default -> throw new IllegalArgumentException("Unexpected value: " + o);
+        };
+    }
+
+    @Test
+    void assertResponse() {
+        assertThat(respond(new UserCreatedEvent("msbaek"))).isEqualTo("User created: msbaek");
+        assertThat(respond(new UserDeletedEvent(new User("msbaek", 1l)))).isEqualTo("User deleted: msbaek");
+    }
+    String enhancedRespond(Object o) {
+        return switch (o) {
+            case UserCreatedEvent(var name) -> "User created: " + name;
+            case UserDeletedEvent(var user) -> "User deleted: " + user.name();
+            default -> throw new IllegalArgumentException("Unexpected value: " + o);
+        };
+    }
+
+    @Test
+    void assertEnhancedResponse() {
+        assertThat(enhancedRespond(new UserCreatedEvent("msbaek"))).isEqualTo("User created: msbaek");
+        assertThat(enhancedRespond(new UserDeletedEvent(new User("msbaek", 1l)))).isEqualTo("User deleted: msbaek");
     }
 }
