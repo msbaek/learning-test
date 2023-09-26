@@ -3,7 +3,10 @@ package pe.msbaek.studyingtest.java21;
 import org.junit.jupiter.api.Test;
 
 import java.net.http.HttpClient;
+import java.util.List;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import static java.lang.Character.isEmoji;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,5 +53,54 @@ public class VirtualThreadTest {
                 .repeat("-", 10)
                 .toString();
         assertThat(line).isEqualTo("----------");
+    }
+
+    @Test
+    void loom() throws Exception {
+        ConcurrentSkipListSet<String> observed = new ConcurrentSkipListSet<>();
+        List<Thread> threads = IntStream
+                .range(0, 100)
+                .mapToObj(index -> Thread.ofVirtual() // .ofPlatform()
+                        .unstarted(() -> {
+                            boolean isFirst = index == 0;
+                            if(isFirst) {
+                                observed.add(Thread.currentThread().toString());
+                            }
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if(isFirst) {
+                                observed.add(Thread.currentThread().toString());
+                            }
+                            try {
+                                Thread.sleep(20);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if(isFirst) {
+                                observed.add(Thread.currentThread().toString());
+                            }
+                            try {
+                                Thread.sleep(20);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if(isFirst) {
+                                observed.add(Thread.currentThread().toString());
+                            }
+                        }))
+                .toList();
+        for(Thread thread : threads) {
+            thread.start();
+        }
+        for (Thread thread : threads) {
+            thread.join();
+        }
+
+        observed.forEach(System.out::println);
+
+        assertThat(observed.size()).isGreaterThan(1);
     }
 }
