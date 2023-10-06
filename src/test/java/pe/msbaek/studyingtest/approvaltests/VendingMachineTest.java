@@ -1,13 +1,11 @@
 package pe.msbaek.studyingtest.approvaltests;
 
+import org.approvaltests.Approvals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VendingMachineTest {
 
@@ -27,12 +25,21 @@ public class VendingMachineTest {
 
     @Test
     public void test_accept_coins() {
-        assertEquals("INSERT COIN", machine.display());
+        String result = act();
+
+        Approvals.verify(result);
+    }
+
+    private String act() {
+        VendingMachinePrinter vendingMachinePrinter = new VendingMachinePrinter(machine);
+
+        StringBuilder sb  = new StringBuilder("Feature: Nickel is accepted\n\n");
+        sb.append(vendingMachinePrinter.print());
 
         machine.insertCoin(coins.get("nickel"));
+        sb.append("\ninsert coin: nickel\n\n");
 
-        assertEquals(5, machine.balance().intValue());
-        assertArrayEquals(new Integer[]{5}, machine.coins());
-        assertEquals("5", machine.display());
+        sb.append(vendingMachinePrinter.print());
+        return sb.toString();
     }
 }

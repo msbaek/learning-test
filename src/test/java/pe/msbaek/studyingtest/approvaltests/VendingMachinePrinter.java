@@ -1,5 +1,9 @@
 package pe.msbaek.studyingtest.approvaltests;
 
+import java.util.*;
+
+import static java.awt.SystemColor.text;
+
 public class VendingMachinePrinter {
     private final int columns;
     private final VendingMachine machine;
@@ -10,9 +14,26 @@ public class VendingMachinePrinter {
     }
 
     String print(){
-        return "VendingMachine\n"
-                // TODO: finish this
-                ;
+        Map<String, String> fields = new LinkedHashMap();
+        fields.put("Display", machine.display());
+        fields.put("Balance", machine.balance().toString());
+        fields.put("Coins", formatCoins(machine.coins()));
+
+        StringBuilder lines = new StringBuilder("Vending Machine\n");
+        fields.forEach(
+                (key, value) -> lines.append(formatLineWithWhitespace(key, value))
+        );
+
+        return lines.toString();
+    }
+
+    private String formatCoins(Integer[] coins) {
+        // join coins with commas, start with [, end with ]
+        String joined = Arrays.stream(coins)
+                .map(Object::toString)
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
+        return String.format("[%s]", joined);
     }
 
     /** Convenience function that lays out a name and a value at either ends of a fixed-width line.
