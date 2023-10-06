@@ -1,18 +1,34 @@
 package pe.msbaek.studyingtest.approvaltests;
 
-public abstract class Story {
+public class Story {
+    private final VendingMachine machine;
+    private final VendingMachinePrinter printer;
+
     public Story(VendingMachine machine) {
+        this.machine = machine;
+        this.printer = new VendingMachinePrinter(machine);
     }
 
-    String act(VendingMachine machine, Integer coin, String featureName, String eventName) {
-        VendingMachinePrinter vendingMachinePrinter = new VendingMachinePrinter(machine);
-        StringBuilder sb = new StringBuilder(featureName + "\n\n");
-        sb.append(vendingMachinePrinter.print());
-        doIt(machine, coin);
-        sb.append("\n" + eventName + "\n\n");
-        sb.append(vendingMachinePrinter.print());
-        return sb.toString();
+    String act(String featureName, String eventName, Runnable act) {
+        String lines = header(featureName);
+        lines += beforeOrAfter();
+
+        act.run();
+
+        lines += eventName(eventName);
+        lines += beforeOrAfter();
+        return lines;
     }
 
-    abstract void doIt(VendingMachine machine, Integer coin);
+    private String eventName(String eventName) {
+        return "\n" + eventName + "\n\n";
+    }
+
+    private String beforeOrAfter() {
+        return printer.print();
+    }
+
+    private String header(String featureName) {
+        return featureName + "\n\n";
+    }
 }

@@ -1,8 +1,8 @@
 package pe.msbaek.studyingtest.approvaltests;
 
-import java.util.*;
-
-import static java.awt.SystemColor.text;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class VendingMachinePrinter {
     private final int columns;

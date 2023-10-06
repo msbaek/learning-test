@@ -4,35 +4,29 @@ import org.approvaltests.Approvals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class VendingMachineTest {
-
     private VendingMachine machine;
     private Map<String, Integer> coins;
+    private Story story;
 
     @BeforeEach
     void setUp() {
         machine = new VendingMachine();
-        coins = new HashMap<String, Integer>() {{
-            put("penny", 1);
-            put("nickel", 5);
-            put("dime", 10);
-            put("quarter", 25);
-        }};
+        story = new Story(machine);
+        coins = Map.of(
+                "penny", 1,
+                "nickel", 5,
+                "dime", 10,
+                "quarter", 25
+        );
     }
 
     @Test
     public void test_accept_coins() {
-        Story story = new Story(machine) {
-            @Override
-            void doIt(VendingMachine machine, Integer coin) {
-                machine.insertCoin(coin);
-            }
-        };
-
-        String result = story.act(machine, coins.get("nickel"), "Feature: Nickel is accepted", "insert coin: nickel");
+        String result = story.act("Feature: Nickel is accepted", "insert coin: nickel",
+                () -> machine.insertCoin(coins.get("nickel")));
 
         Approvals.verify(result);
     }
