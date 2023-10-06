@@ -25,21 +25,15 @@ public class VendingMachineTest {
 
     @Test
     public void test_accept_coins() {
-        String result = act();
+        Story story = new Story(machine) {
+            @Override
+            void doIt(VendingMachine machine, Integer coin) {
+                machine.insertCoin(coin);
+            }
+        };
+
+        String result = story.act(machine, coins.get("nickel"), "Feature: Nickel is accepted", "insert coin: nickel");
 
         Approvals.verify(result);
-    }
-
-    private String act() {
-        VendingMachinePrinter vendingMachinePrinter = new VendingMachinePrinter(machine);
-
-        StringBuilder sb  = new StringBuilder("Feature: Nickel is accepted\n\n");
-        sb.append(vendingMachinePrinter.print());
-
-        machine.insertCoin(coins.get("nickel"));
-        sb.append("\ninsert coin: nickel\n\n");
-
-        sb.append(vendingMachinePrinter.print());
-        return sb.toString();
     }
 }
