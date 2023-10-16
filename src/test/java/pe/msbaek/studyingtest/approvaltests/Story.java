@@ -1,11 +1,9 @@
 package pe.msbaek.studyingtest.approvaltests;
 
 public class Story {
-    private final VendingMachine machine;
     private final VendingMachinePrinter printer;
 
     public Story(VendingMachine machine) {
-        this.machine = machine;
         this.printer = new VendingMachinePrinter(machine);
     }
 
