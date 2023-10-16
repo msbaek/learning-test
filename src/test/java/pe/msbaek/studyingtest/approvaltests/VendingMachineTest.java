@@ -25,8 +25,11 @@ public class VendingMachineTest {
 
     @Test
     public void test_accept_coins() {
-        String result = story.act("Feature: Nickel is accepted", "insert coin: nickel",
-                () -> machine.insertCoin(coins.get("nickel")));
+        String result = story.act(
+                "Feature: Nickel is accepted",
+                "insert coin: nickel",
+                () -> machine.insertCoin(coins.get("nickel"))
+        );
 
         Approvals.verify(result);
     }
