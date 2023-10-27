@@ -1,0 +1,4 @@
+2001 -> false	typical case - divides by 4
+1996 -> true	typical leaf year case - divides by 4
+1900 -> false	atypical - divides by 100
+2000 -> true	atypical - divides by 400
