@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  */
 public class TestFirstApprovalTesting {
     @Test
-    void name() {
-        Approvals.verify("Hello world");
+    void recentYears() {
+        Approvals.verify("2001 -> false");
     }
 }
