@@ -28,6 +28,6 @@ public class TestFirstApprovalTesting {
     }
 
     private boolean isLeapYear(int year) {
-        return false;
+        return year % 4 == 0;
     }
 }
