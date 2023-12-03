@@ -1,10 +1,9 @@
 package pe.msbaek.studyingtest.testcontainers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +22,11 @@ public class PostController {
     public Post getPostById(@PathVariable Integer id) {
         return repository.findById(id)
                 .orElseThrow(PostNotFoundException::new);
+    }
+
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Post createPost(@RequestBody @Valid Post post) {
+        return repository.save(post);
     }
 }
