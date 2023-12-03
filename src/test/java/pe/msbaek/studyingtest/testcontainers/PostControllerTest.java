@@ -3,6 +3,7 @@ package pe.msbaek.studyingtest.testcontainers;
 import org.eclipse.jetty.http.HttpStatus;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import pe.msbaek.studyingtest.AbstractTestContainerTest;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.testingisdocumenting.webtau.Matchers.equal;
 import static org.testingisdocumenting.webtau.WebTauDsl.http;
 
@@ -23,6 +25,8 @@ class PostControllerTest extends AbstractTestContainerTest {
     int port;
 
     ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private PostRepository postRepository;
 
 //    @Autowired
 //    TestRestTemplate restTemplate;
@@ -96,6 +100,17 @@ class PostControllerTest extends AbstractTestContainerTest {
             body.get("id").should(equal(1));
             body.get("body").should(equal("NEW POST BODY #1"));
             body.get("title").should(equal("NEW POST TITLE #1"));
+        });
+    }
+
+    @Test
+    void shouldDeleteWithValidID() {
+        http.delete(hostAndPort() + "/api/posts/88", (header, body) -> {
+            header.statusCode.should(equal(HttpStatus.NO_CONTENT_204));
+        });
+
+        postRepository.findById(88).ifPresent(post -> {
+            fail("Post should be deleted");
         });
     }
 

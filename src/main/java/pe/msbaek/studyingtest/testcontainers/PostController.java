@@ -39,4 +39,10 @@ public class PostController {
                 .setBody(post.getBody());
         return repository.save(found);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePost(@PathVariable Integer id) {
+        repository.deleteById(id);
+    }
 }
