@@ -38,4 +38,12 @@ class PostControllerTest extends AbstractTestContainerTest {
     private String getUrl() {
         return "http://localhost:" + port;
     }
+
+    @Test
+    void shouldFindPostWhenValidPostID() {
+        http.get(getUrl() + "/api/posts/1", (header, body) -> {
+            header.statusCode.should(equal(200));
+            body.get("id").should(equal(1));
+        });
+    }
 }
