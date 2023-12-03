@@ -46,4 +46,11 @@ class PostControllerTest extends AbstractTestContainerTest {
             body.get("id").should(equal(1));
         });
     }
+
+    @Test
+    void shouldThrowNotFoundWhenInvalidPostID() {
+        http.get(getUrl() + "/api/posts/201", (header, body) -> {
+            header.statusCode.should(equal(404));
+        });
+    }
 }
