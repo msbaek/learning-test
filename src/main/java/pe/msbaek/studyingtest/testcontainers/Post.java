@@ -16,8 +16,8 @@ class Post {
     @Id
     Integer id;
     Integer userId;
-    @NotEmpty String title;
-    @NotEmpty String body;
+    @NotEmpty(message = "title should not be empty") String title;
+    @NotEmpty(message = "body should not be empty") String body;
     @Version
     Integer version;
 
