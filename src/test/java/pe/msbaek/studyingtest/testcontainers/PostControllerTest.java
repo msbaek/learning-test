@@ -18,6 +18,11 @@ import static org.assertj.core.api.Assertions.fail;
 import static org.testingisdocumenting.webtau.Matchers.equal;
 import static org.testingisdocumenting.webtau.WebTauDsl.http;
 
+/**
+ * https://www.youtube.com/watch?v=erp-7MCK5BU
+ * https://github.com/danson-placeholder-service
+ *
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 class PostControllerTest extends AbstractTestContainerTest {
