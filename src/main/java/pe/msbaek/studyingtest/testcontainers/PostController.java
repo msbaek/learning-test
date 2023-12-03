@@ -29,4 +29,14 @@ public class PostController {
     public Post createPost(@RequestBody @Valid Post post) {
         return repository.save(post);
     }
+
+    @PutMapping("/{id}")
+    public Post updatePost(@PathVariable Integer id, @RequestBody @Valid Post post) {
+        Post found = repository.findById(id)
+                .orElseThrow(PostNotFoundException::new);
+        found.setUserId(post.getUserId())
+                .setTitle(post.getTitle())
+                .setBody(post.getBody());
+        return repository.save(found);
+    }
 }
