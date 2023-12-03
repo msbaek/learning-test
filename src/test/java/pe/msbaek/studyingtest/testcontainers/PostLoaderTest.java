@@ -9,8 +9,8 @@ class PostLoaderTest extends AbstractTestContainerTest {
     @Autowired PostRepository repository;
 
     @Test
-    void loadFromJson() {
-        loader.run();
+    void loadFromJson() throws Exception {
+        loader.run(null);
         repository.findAll().forEach(System.out::println);
     }
 }
