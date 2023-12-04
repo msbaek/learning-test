@@ -33,28 +33,17 @@ class PostControllerTest extends AbstractTestContainerTest {
     @Autowired
     private PostRepository postRepository;
 
-//    @Autowired
-//    TestRestTemplate restTemplate;
-//
-//    @Test
-//    void name() {
-//        ResponseEntity<String> forEntity = restTemplate.getForEntity("/api/posts", String.class);
-//        System.out.println("forEntity = " + forEntity);
-//        System.out.println(forEntity.getBody());
-//    }
+    @NotNull
+    private String hostAndPort() {
+        return "http://localhost:" + port;
+    }
 
     @Test
     void getAll() {
         http.get(hostAndPort() + "/api/posts", (header, body) -> {
             header.statusCode.should(equal(200));
-            System.out.println("body = " + body.get(1));
             assertThat(body.numberOfElements()).isEqualTo(100);
         });
-    }
-
-    @NotNull
-    private String hostAndPort() {
-        return "http://localhost:" + port;
     }
 
     @Test
@@ -84,7 +73,6 @@ class PostControllerTest extends AbstractTestContainerTest {
         http.post(hostAndPort() + "/api/posts", post, ((header, body) -> {
             header.statusCode.should(equal(HttpStatus.CREATED_201));
             body.get("id").should(equal(101));
-            System.out.println(body.getTextContent());
         }));
     }
 
