@@ -35,9 +35,18 @@ public class CommandLineRunner {
 
     private record CountOrders(String filename, boolean onlyCountReady) {
         private long countOrders(CountOrders countOrders) throws IOException {
+            Order[] orders = readOrders(countOrders);
+            return count(countOrders, orders);
+        }
+
+        private Order[] readOrders(CountOrders countOrders) throws IOException {
             File input = Paths.get(countOrders.filename()).toFile();
             ObjectMapper objectMapper = new ObjectMapper();
             Order[] orders = objectMapper.readValue(input, Order[].class);
+            return orders;
+        }
+
+        private long count(CountOrders countOrders, Order[] orders) {
             if(countOrders.onlyCountReady()) {
                 return Arrays.stream(orders)
                         .filter(order -> "ready".equals(order.status()))
