@@ -16,15 +16,24 @@ public class CommandLineRunner {
             if(args.length == 0) {
                 throw new IllegalArgumentException("enter file name");
             }
-            String filename = args[args.length - 1];
-            boolean onlyCountReady = Arrays.asList(args).contains("-r");
 
-            System.out.println(countOrders(filename, onlyCountReady));
+            CountOrders countOrders = parse(args);
+
+            System.out.println(countOrders(countOrders.filename(), countOrders.onlyCountReady()));
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
             System.exit(-1);
         }
+    }
+
+    private static CountOrders parse(String[] args) {
+        String filename = args[args.length - 1];
+        boolean onlyCountReady = Arrays.asList(args).contains("-r");
+        return new CountOrders(filename, onlyCountReady);
+    }
+
+    private record CountOrders(String filename, boolean onlyCountReady) {
     }
 
     private static long countOrders(String filename, boolean onlyCountReady) throws IOException {
