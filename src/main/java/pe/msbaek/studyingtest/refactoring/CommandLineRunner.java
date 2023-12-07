@@ -16,11 +16,11 @@ public class CommandLineRunner {
                 throw new IllegalArgumentException("enter file name");
             }
             String filename = args[args.length - 1];
+            boolean onlyCountReady = Arrays.asList(args).contains("-r");
 
             File input = Paths.get(filename).toFile();
             ObjectMapper objectMapper = new ObjectMapper();
             Order[] orders = objectMapper.readValue(input, Order[].class);
-            boolean onlyCountReady = Arrays.asList(args).contains("-r");
             if(onlyCountReady) {
                 System.out.println(Arrays.stream(orders)
                         .filter(order -> "ready".equals(order.status()))
