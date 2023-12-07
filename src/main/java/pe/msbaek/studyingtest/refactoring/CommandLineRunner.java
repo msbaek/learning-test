@@ -20,7 +20,8 @@ public class CommandLineRunner {
             File input = Paths.get(filename).toFile();
             ObjectMapper objectMapper = new ObjectMapper();
             Order[] orders = objectMapper.readValue(input, Order[].class);
-            if(Arrays.asList(args).contains("-r")) {
+            boolean onlyCountReady = Arrays.asList(args).contains("-r");
+            if(onlyCountReady) {
                 System.out.println(Arrays.stream(orders)
                         .filter(order -> "ready".equals(order.status()))
                         .count());
