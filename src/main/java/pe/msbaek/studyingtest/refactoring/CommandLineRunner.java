@@ -19,7 +19,7 @@ public class CommandLineRunner {
             String filename = args[args.length - 1];
             boolean onlyCountReady = Arrays.asList(args).contains("-r");
 
-            countOrders(filename, onlyCountReady);
+            System.out.println(countOrders(filename, onlyCountReady));
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -27,17 +27,17 @@ public class CommandLineRunner {
         }
     }
 
-    private static void countOrders(String filename, boolean onlyCountReady) throws IOException {
+    private static long countOrders(String filename, boolean onlyCountReady) throws IOException {
         File input = Paths.get(filename).toFile();
         ObjectMapper objectMapper = new ObjectMapper();
         Order[] orders = objectMapper.readValue(input, Order[].class);
         if(onlyCountReady) {
-            System.out.println(Arrays.stream(orders)
+            return Arrays.stream(orders)
                     .filter(order -> "ready".equals(order.status()))
-                    .count());
+                    .count();
         }
         else {
-            System.out.println(orders.length);
+            return orders.length;
         }
     }
 }
