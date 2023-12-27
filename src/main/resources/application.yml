@@ -1,0 +1,32 @@
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/mytdd?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        #        format_sql: true
+        jdbc.batch_size: 15
+        order_inserts: true
+        order_updates: true
+        #        jdbc.batch_versioned_data: true
+        connection:
+        #          provider_disables_autocommit: true # https://bit.ly/3vgHUCj
+        query:
+          in_clause_parameter_padding: true # https://bit.ly/4aLIjNo
+          fail_on_pagination_over_collection_fetch: true
+          plan_cache_max_size: 4096 # https://bit.ly/48Adycn
+  sql:
+    init:
+      mode: always
