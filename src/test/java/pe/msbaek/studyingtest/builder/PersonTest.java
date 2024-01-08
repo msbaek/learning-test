@@ -9,7 +9,7 @@ class PersonTest {
                 .sex(1)
                 .age(20)
                 .age(20)
-                .name("modified name")
+//                .name("modified name")
                 .build();
 
         System.out.println(person);
