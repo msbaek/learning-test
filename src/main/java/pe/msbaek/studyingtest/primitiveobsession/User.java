@@ -1,17 +1,17 @@
 package pe.msbaek.studyingtest.primitiveobsession;
 
 public class User {
-    private String name;
+    private final UserName userName = new UserName();
 
     public String getName() {
-        return name;
+        return userName.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        userName.setName(name);
     }
 
     public User(String name) {
-        this.name = name;
+        this.userName.setName(name);
     }
 }
