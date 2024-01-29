@@ -12,6 +12,11 @@ public class UserNameTest {
         });
     }
 
+    @Test
+    void should_not_throw_exception_when_user_name_contains_no_whitespace() {
+        createUser("msbaek");
+    }
+
     private User createUser(String name) {
         if(!isValid(name))
             throw new IllegalArgumentException("Invalid name: [%s]".formatted(name));
