@@ -18,18 +18,7 @@ public class UserNameTest {
     }
 
     private static User createUser(String name) {
-        validateUserName(name);
+        UserName.validateUserName(name);
         return new User(name);
-    }
-
-    private static void validateUserName(String name) {
-        if(!isValid(name))
-            throw new IllegalArgumentException("Invalid name: [%s]".formatted(name));
-    }
-
-    private static boolean isValid(String name) {
-        if(name == null || name.isBlank())
-            return false;
-        return !name.contains(" ");
     }
 }
