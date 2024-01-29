@@ -1,7 +1,7 @@
 package pe.msbaek.studyingtest.primitiveobsession;
 
 public class User {
-    private final UserName userName = new UserName();
+    private final UserName userName;
 
     public String getName() {
         return userName.getName();
@@ -12,6 +12,6 @@ public class User {
     }
 
     public User(String name) {
-        this.userName.setName(name);
+        this.userName = new UserName(name);
     }
 }

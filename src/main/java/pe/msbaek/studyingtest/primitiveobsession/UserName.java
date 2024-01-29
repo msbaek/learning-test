@@ -6,6 +6,10 @@ public class UserName {
     public UserName() {
     }
 
+    public UserName(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
