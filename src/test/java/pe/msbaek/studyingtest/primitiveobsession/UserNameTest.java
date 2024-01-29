@@ -13,6 +13,14 @@ public class UserNameTest {
     }
 
     private User createUser(String name) {
+        if(!isValid(name))
+            throw new IllegalArgumentException("Invalid name: [%s]".formatted(name));
         return new User(name);
+    }
+
+    private boolean isValid(String name) {
+        if(name == null || name.isBlank())
+            return false;
+        return !name.contains(" ");
     }
 }
