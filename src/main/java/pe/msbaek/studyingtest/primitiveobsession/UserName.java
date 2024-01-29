@@ -7,10 +7,11 @@ public class UserName {
     }
 
     public UserName(String name) {
+        validateUserName(name);
         this.name = name;
     }
 
-    static void validateUserName(String name) {
+    private static void validateUserName(String name) {
         if(!isValid(name))
             throw new IllegalArgumentException("Invalid name: [%s]".formatted(name));
     }

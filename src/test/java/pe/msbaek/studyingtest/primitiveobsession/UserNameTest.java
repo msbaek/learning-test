@@ -18,7 +18,6 @@ public class UserNameTest {
     }
 
     private static User createUser(String name) {
-        UserName.validateUserName(name);
         return new User(name);
     }
 }
