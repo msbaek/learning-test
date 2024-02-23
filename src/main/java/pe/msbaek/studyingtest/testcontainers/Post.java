@@ -7,11 +7,13 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
+@DynamicUpdate
 class Post {
     @Id
     Integer id;

@@ -1,5 +1,6 @@
 package pe.msbaek.studyingtest.testcontainers;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/posts")
 @RestController
+@Transactional
 public class PostController {
     private final PostRepository repository;
 
@@ -37,7 +39,8 @@ public class PostController {
         found.setUserId(post.getUserId())
                 .setTitle(post.getTitle())
                 .setBody(post.getBody());
-        return repository.save(found);
+//        repository.save(found);
+        return found;
     }
 
     @DeleteMapping("/{id}")
