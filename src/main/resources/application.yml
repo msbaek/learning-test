@@ -9,7 +9,7 @@ spring:
     password: verysecret
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
     open-in-view: false
     properties:
