@@ -9,7 +9,7 @@ import static org.mapstruct.factory.Mappers.getMapper;
  */
 @Mapper
 public interface PersonMapper {
-//    PersonMapper INSTANCE = getMapper(PersonMapper.class);
+    PersonMapper INSTANCE = getMapper(PersonMapper.class);
     PersonDto toDto(Person person);
     Person fromDto(PersonDto dto);
 }
