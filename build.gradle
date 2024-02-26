@@ -34,7 +34,9 @@ dependencies {
 	testImplementation 'com.approvaltests:approvaltests:20.0.0'
 	testImplementation 'org.testingisdocumenting.webtau:webtau:2.2'
 	testImplementation 'org.testingisdocumenting.webtau:webtau-junit5:2.2'
-	testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.9.0'
+	testImplementation 'org.mockito:mockito-core:5.9.0'
+	testImplementation 'io.rest-assured:rest-assured:5.4.0'
+
 }
 
 tasks.named('test') {

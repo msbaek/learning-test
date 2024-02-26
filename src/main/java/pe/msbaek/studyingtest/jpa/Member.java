@@ -13,7 +13,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 @Setter
 @Getter
 @ToString
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id", callSuper = true)
 @Entity
 public class Member extends AbstractAggregateRoot<Member> {
     @Id

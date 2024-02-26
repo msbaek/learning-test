@@ -14,7 +14,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Setter
 @Entity
 @DynamicUpdate
-class Post {
+public class Post {
     @Id
     Integer id;
     Integer userId;

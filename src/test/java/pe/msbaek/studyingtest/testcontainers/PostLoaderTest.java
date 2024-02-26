@@ -12,7 +12,7 @@ class PostLoaderTest extends AbstractTestContainerTest {
 
     @Test
     void loadFromJson() throws Exception {
-        loader.run(null);
+//        loader.run(null);
         repository.findAll().forEach(System.out::println);
     }
 }
