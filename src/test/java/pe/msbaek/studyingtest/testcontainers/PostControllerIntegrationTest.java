@@ -1,4 +1,4 @@
-package pe.msbaek.studyingtest.validation;
+package pe.msbaek.studyingtest.testcontainers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,13 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
-import pe.msbaek.studyingtest.testcontainers.Post;
 
 import static io.restassured.RestAssured.given;
 
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ValidationTest {
+public class PostControllerIntegrationTest {
     @LocalServerPort
     private int port;
     private ObjectMapper mapper = new ObjectMapper();
