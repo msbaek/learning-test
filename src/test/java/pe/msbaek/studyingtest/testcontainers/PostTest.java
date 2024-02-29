@@ -5,6 +5,8 @@ import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PostTest {
@@ -38,5 +40,11 @@ class PostTest {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("no violation"))
                 .getMessage()).isEqualTo("body should not be empty");
+    }
+
+    @Test
+    void name() {
+        String [ ] arr = {"a", "b", "c"};
+        assertThat(arr instanceof String[]).isTrue();
     }
 }
