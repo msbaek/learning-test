@@ -7,8 +7,7 @@ abstract class ResourceFile {
         this.filePath = filePath;
     }
 
-    public abstract void accept(Extractor extractor);
-    public abstract void accept(Compressor compressor);
+    public abstract void accept(Visitor visitor);
 }
 
 class PPTFile extends ResourceFile {
@@ -17,13 +16,8 @@ class PPTFile extends ResourceFile {
     }
 
     @Override
-    public void accept(Extractor extractor) {
-        extractor.extract2txt(this);
-    }
-
-    @Override
-    public void accept(Compressor compressor) {
-        compressor.compress(this);
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
 
@@ -33,13 +27,8 @@ class PdfFile extends ResourceFile {
     }
 
     @Override
-    public void accept(Extractor extractor) {
-        extractor.extract2txt(this);
-    }
-
-    @Override
-    public void accept(Compressor compressor) {
-        compressor.compress(this);
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
 
@@ -49,13 +38,8 @@ class WordFile extends ResourceFile {
     }
 
     @Override
-    public void accept(Extractor extractor) {
-        extractor.extract2txt(this);
-    }
-
-    @Override
-    public void accept(Compressor compressor) {
-        compressor.compress(this);
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
 

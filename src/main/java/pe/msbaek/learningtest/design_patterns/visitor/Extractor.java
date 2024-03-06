@@ -1,41 +1,55 @@
 package pe.msbaek.learningtest.design_patterns.visitor;
 
-public class Extractor {
-    public void extract2txt(PPTFile pptFile) {
+/**
+ *
+ * 더블 디스패치
+ * <p>
+ *     <ul>
+ *      <li>두 개의 객체 간 상호 작용이 객체의 실제 타입에 따라 어떻게 동작할지를 결정하는 데 사용됨</li>
+ *      <li>메소드 오버로딩을 통해 이루어짐</li>
+ *      <li>일반적인 디스패치는 오브젝트 메소드를 호출할 때 하나의 객체(호출하는 객체)에 대해서만 동작함.</li>
+ *      <li>즉, 메소드는 호출하는 객체의 타입에 따라 결정됨</li>
+ *      <li>더블 디스패치는 두 객체의 타입을 모두 고려함. 즉, 메소드는 호출하는 객체와 메소드에 전달된 인수의 타입에 따라 결정됨</li>
+ *     </ul>
+ */
+interface Visitor {
+    void visit(PPTFile pptFile);
+
+    void visit(PdfFile pdfFile);
+
+    void visit(WordFile wordFile);
+}
+
+public class Extractor implements Visitor {
+    @Override
+    public void visit(PPTFile pptFile) {
         System.out.println("Extract PPT.");
     }
 
-    public void extract2txt(PdfFile pdfFile) {
+    @Override
+    public void visit(PdfFile pdfFile) {
         System.out.println("Extract PDF.");
     }
 
-    public void extract2txt(WordFile wordFile) {
+    @Override
+    public void visit(WordFile wordFile) {
         System.out.println("Extract WORD.");
     }
 }
 
-/**
- * 몇가지 문제점
- * <p>
- *     <ul>
- *         <li>새로운 기능을 추가할 때마다 각각의 리소스 파일 클래스를 매번 수정해야 하기 때문에 OCP 위반</li>
- *         <li>이를 해결하기 위해</li>
- *         <ul>
- *             <li>Visitor 추상 인터페이스를 정의하고,</li>
- *             <li>리소스 파일 혁식을 구분하여 처리하는 오버로드 함수인 visit()를 리소스 파일 형식 개수만큼 정의해야 함</li>
- *         </ul
- *     </ul>
- */
-class Compressor {
-    public void compress(PPTFile pptFile) {
+class Compressor implements Visitor {
+    @Override
+    public void visit(PPTFile pptFile) {
         System.out.println("Compress PPT.");
     }
 
-    public void compress(PdfFile pdfFile) {
+    @Override
+    public void visit(PdfFile pdfFile) {
         System.out.println("Compress PDF.");
     }
 
-    public void compress(WordFile wordFile) {
+    @Override
+    public void visit(WordFile wordFile) {
         System.out.println("Compress WORD.");
     }
 }
