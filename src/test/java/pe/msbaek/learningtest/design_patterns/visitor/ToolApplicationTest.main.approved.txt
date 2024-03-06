@@ -1,0 +1,6 @@
+Extract PDF.
+Compress PDF.
+Extract WORD.
+Compress WORD.
+Extract PPT.
+Compress PPT.

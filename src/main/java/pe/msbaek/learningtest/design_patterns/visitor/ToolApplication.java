@@ -8,6 +8,7 @@ abstract class ResourceFile {
     }
 
     public abstract void accept(Extractor extractor);
+    public abstract void accept(Compressor compressor);
 }
 
 class PPTFile extends ResourceFile {
@@ -18,6 +19,11 @@ class PPTFile extends ResourceFile {
     @Override
     public void accept(Extractor extractor) {
         extractor.extract2txt(this);
+    }
+
+    @Override
+    public void accept(Compressor compressor) {
+        compressor.compress(this);
     }
 }
 
@@ -30,6 +36,11 @@ class PdfFile extends ResourceFile {
     public void accept(Extractor extractor) {
         extractor.extract2txt(this);
     }
+
+    @Override
+    public void accept(Compressor compressor) {
+        compressor.compress(this);
+    }
 }
 
 class WordFile extends ResourceFile {
@@ -40,6 +51,11 @@ class WordFile extends ResourceFile {
     @Override
     public void accept(Extractor extractor) {
         extractor.extract2txt(this);
+    }
+
+    @Override
+    public void accept(Compressor compressor) {
+        compressor.compress(this);
     }
 }
 
