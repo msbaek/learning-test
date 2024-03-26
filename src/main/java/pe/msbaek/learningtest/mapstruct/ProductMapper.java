@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
     @Mapping(source = "productName", target = "name")
-    @Mapping(target = "totalPrice", expression = "java(product.getPrice() * 1.08")
+    // @Mapping(target = "totalPrice", expression = "java(product.getPrice() * 1.08")
     @Mapping(target = "price", source = "price", defaultValue = "0.0") // mapping with null handling
     @Mapping(target = "manufactureDate", source = "manufactureDate", qualifiedByName = "stringToLocalDate")
     ProductDto toDto(Product product);

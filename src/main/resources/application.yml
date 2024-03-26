@@ -41,3 +41,7 @@ logging:
         boot:
           autoconfigure=ERROR:
     root: info
+pe:
+  msbaek:
+    learningtest:
+      clientSecret: properteis in yaml
