@@ -1,0 +1,7 @@
+valueA = 1.000000, valueB = 2.000000
+
+is(valueA).equalTo(valueB)              = false
+is(valueA).greaterThan(valueB)          = false
+is(valueA).greaterThanOrEqualTo(valueB) = false
+is(valueA).lessThan(valueB)             = true
+is(valueA).lessThanOrEqualTo(valueB)    = true
