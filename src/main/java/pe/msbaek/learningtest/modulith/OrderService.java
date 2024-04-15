@@ -1,5 +1,6 @@
 package pe.msbaek.learningtest.modulith;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -104,6 +105,7 @@ class LoyalCustomersRepository {
     }
 }
 
+@Slf4j
 @Service
 class LoyaltyPointsService {
 
@@ -116,8 +118,8 @@ class LoyaltyPointsService {
 
     @EventListener
     public void onOrderCompleted(OrderCompletedEvent event) {
+        log.error("LoyaltyPointsService::onOrderCompleted: {}", event);
         // business logic to award points to loyal customers
         loyalCustomers.awardPoints(event.customerId(), ORDER_COMPLETED_POINTS);
     }
-
 }
