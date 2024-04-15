@@ -1,47 +1,17 @@
 package pe.msbaek.learningtest.modulith;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
-
-@Service
-class OrderService {
-    private final OrderRepository repository;
-    private final ApplicationEventPublisher eventPublisher;
-
-    public OrderService(OrderRepository orders, ApplicationEventPublisher eventsPublisher) {
-        this.repository = orders;
-        this.eventPublisher = eventsPublisher;
-    }
-
-    public void placeOrder(String customerId, String... productIds) {
-        Order order = new Order(customerId, Arrays.asList(productIds));
-        // business logic to validate and place the order
-
-        Order savedOrder = repository.save(order);
-
-        OrderCompletedEvent event = new OrderCompletedEvent(savedOrder.id(), savedOrder.customerId(), savedOrder.timestamp());
-        eventPublisher.publishEvent(event);
-    }
-}
-
-@Repository
-class OrderRepository {
-    private AtomicLong orderIdSequence = new AtomicLong(1);
-    private Map<String, Order> orderMap = new HashMap<>();
-
-    Order save(Order order) {
-        orderMap.put(order.id(), order);
-        return order;
-    }
-}
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 class Order {
     private String id;
@@ -67,6 +37,34 @@ class Order {
     }
 }
 
+@Service
+class OrderService {
+    private final OrderRepository repository;
+    private final ApplicationEventPublisher eventPublisher;
+
+    public OrderService(OrderRepository orders, ApplicationEventPublisher eventsPublisher) {
+        this.repository = orders;
+        this.eventPublisher = eventsPublisher;
+    }
+
+    public void placeOrder(String customerId, String... productIds) {
+        Order order = new Order(customerId, Arrays.asList(productIds));
+        // business logic to validate and place the order
+
+        Order savedOrder = repository.save(order);
+
+        OrderCompletedEvent event = new OrderCompletedEvent(savedOrder.id(), savedOrder.customerId(), savedOrder.timestamp());
+        eventPublisher.publishEvent(event);
+    }
+}
+
+@Repository
+class OrderRepository {
+    Order save(Order order) {
+        return order;
+    }
+}
+
 record OrderCompletedEvent(String orderId, String customerId, Instant timestamp) {
 }
 @Component
@@ -76,8 +74,7 @@ class LoyalCustomersRepository {
 
     public Optional<LoyalCustomer> find(String customerId) {
         return customers.stream()
-                .filter(it -> it.customerId()
-                        .equals(customerId))
+                .filter(it -> it.customerId().equals(customerId))
                 .findFirst();
     }
 
